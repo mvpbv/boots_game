@@ -82,8 +82,48 @@ class BearAssassin(NormalEnemy):
         print(f"{self.name} ATTACKS BOOTS FOR {self.atk} DMG")
         boots.hp -= self.atk
 
+class Vec(NormalEnemy):
+    def __init__(self):
+        super().__init__()
+        self.name = "Vec"
+        self.hp = 30
+        self.atk = 15
+        print(f"{self.name} APPEARS!")
+
+    def normal_atk(self, boots):
+        rand = randint(0, 4)
+        if (rand == 0):
+            self.bus(boots)
+        elif (rand == 1):
+            self.buff_attack()
+        elif (rand == 2):
+            self.report_casualties(boots) 
+        else:
+            if (randint(0, 1) == 0):
+                self.buff_attack()
+            print(f"{self.name} ATTACKS BOOTS FOR {self.atk} DMG")
+            time.sleep(1.5)
+            boots.hp -= self.atk
+        
+
+    def bus(self, boots):
+        print(f"{self.name} summons a bus driving straight at Boots")
+        time.sleep(1.5)
+        print("Boots is hit by the bus")
+        print(f"{self.name} attacks Boots for {self.atk * 2} DMG")
+        boots.hp -= self.atk * 2
+
+    def report_casualties(self, boots):
+        print(f"{self.name}: @Boots @ChainsawMan I just want to let you guys know I just watched someone get hit by a bus")
+        print(f"{self.name}: I literally watched them die and I didn't care")
+        time.sleep(1.5)
+        print(f"{self.name} ATTACKS BOOTS FOR {self.atk} DMG") 
+        boots.hp -= self.atk * 3
 
 class UndeadNormalEnemy:
     def __init__(self, name):
-        self.name = f"Undead {name}"
+        if (name == "Vec"):
+            self.name = f"Undead Nebulo"
+        else:
+            self.name = f"Undead {name}"
         self.quote = f"{self.name}: I serve Boots!"
